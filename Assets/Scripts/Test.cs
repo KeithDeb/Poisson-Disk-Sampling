@@ -16,10 +16,13 @@ public class Test : MonoBehaviour {
 	}
 
 	void OnDrawGizmos() {
-		Gizmos.DrawWireCube(regionSize/2,regionSize);
+		//Gizmos.DrawWireCube(regionSize/2, regionSize);
+		Gizmos.DrawWireCube(new Vector3(regionSize.x/2,0f,regionSize.y/2), new Vector3(regionSize.x, 0f, regionSize.y));
+
 		if (points != null) {
 			foreach (Vector2 point in points) {
-				Gizmos.DrawSphere(point, displayRadius);
+				Vector3 position = new Vector3(point.x, 0f, point.y);
+				Gizmos.DrawSphere(position, displayRadius);
 			}
 		}
 	}
