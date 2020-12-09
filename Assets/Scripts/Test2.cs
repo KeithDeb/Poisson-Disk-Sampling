@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Test2 : MonoBehaviour {
 
+	public Vector3 startingPoint = Vector3.zero;
 	public float radius = 1;
 	public Vector2 regionSize = Vector2.one;
 	public int rejectionSamples = 30;
@@ -32,7 +33,7 @@ public class Test2 : MonoBehaviour {
 
 		tree.transform.localScale = Vector3.one * randomScale;
 
-		Instantiate(tree, new Vector3(point.x, 0f, point.y), Quaternion.identity);
+		Instantiate(tree, new Vector3(point.x, 0f, point.y) + startingPoint, Quaternion.identity);
 
 		//StartCoroutine(Popup(tree));
 		
@@ -64,11 +65,11 @@ public class Test2 : MonoBehaviour {
 
 	void OnDrawGizmos() {
 
-		Gizmos.DrawWireCube(new Vector3(regionSize.x/2,0f,regionSize.y/2), new Vector3(regionSize.x, 0f, regionSize.y));
+		Gizmos.DrawWireCube(new Vector3(regionSize.x/2,0f,regionSize.y/2) + startingPoint, new Vector3(regionSize.x, 0f, regionSize.y));
 
 		if (points != null) {
 			foreach (Vector2 point in points) {
-				Vector3 position = new Vector3(point.x, 0f, point.y);
+				Vector3 position = new Vector3(point.x, 0f, point.y) + startingPoint;
 				Gizmos.DrawSphere(position, displayRadius);
 			}
 		}
