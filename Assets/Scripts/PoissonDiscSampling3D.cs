@@ -8,6 +8,7 @@ public static class PoissonDiscSampling3D {
 		float cellSize = radius/Mathf.Sqrt(3);
 
 		int[,,] grid = new int[Mathf.CeilToInt(sampleRegionSize.x/cellSize), Mathf.CeilToInt(sampleRegionSize.y/cellSize), Mathf.CeilToInt(sampleRegionSize.z/cellSize)];
+
 		List<Vector3> points = new List<Vector3>();
 		List<Vector3> spawnPoints = new List<Vector3>();
 
@@ -20,8 +21,13 @@ public static class PoissonDiscSampling3D {
 			for (int i = 0; i < numSamplesBeforeRejection; i++)
 			{
 				float angle = Random.value * Mathf.PI * 2;
-				Vector3 dir = new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
-				Vector3 candidate = spawnCentre + dir * Random.Range(radius, 2*radius);
+				float angle2 = Random.value * Mathf.PI * 2;
+
+				Vector3 dir = new Vector3(Mathf.Cos(angle) * Mathf.Sin(angle2), Mathf.Sin(angle) * Mathf.Sin(angle2), Mathf.Cos(angle2));
+
+				Vector3 candidate = spawnCentre + (dir * Random.Range(radius, 2*radius));
+
+
 				if (IsValid(candidate, sampleRegionSize, cellSize, radius, points, grid)) {
 					points.Add(candidate);
 					spawnPoints.Add(candidate);
@@ -40,7 +46,8 @@ public static class PoissonDiscSampling3D {
 	}
 
 	static bool IsValid(Vector3 candidate, Vector3 sampleRegionSize, float cellSize, float radius, List<Vector3> points, int[,,] grid) {
-		if (candidate.x >=0 && candidate.x < sampleRegionSize.x && candidate.y >= 0 && candidate.y < sampleRegionSize.y) {
+		if (candidate.x >=0 && candidate.x < sampleRegionSize.x && candidate.y >= 0 && candidate.y < sampleRegionSize.y && candidate.z >= 0 && candidate.z < sampleRegionSize.z)
+		{
 			int cellX = (int)(candidate.x / cellSize);
 			int cellY = (int)(candidate.y / cellSize);
 			int cellZ = (int)(candidate.z / cellSize);

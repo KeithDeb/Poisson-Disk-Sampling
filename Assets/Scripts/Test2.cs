@@ -26,7 +26,7 @@ public class Test2 : MonoBehaviour {
 
 	IEnumerator CreateTree(Vector2 point)
 	{
-		yield return new WaitForSeconds(Random.Range(0.2f, 3f));
+		yield return new WaitForSeconds(Random.Range(0.2f, 1.5f));
 
 		float randomScale = Random.Range(0.5f, 1.5f);
 

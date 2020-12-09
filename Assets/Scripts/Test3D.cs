@@ -5,13 +5,13 @@ using UnityEngine;
 public class Test3D : MonoBehaviour {
 
 	public float radius = 1;
-	public Vector3 regionSize = Vector2.one;
+	public Vector3 regionSize = Vector3.one;
 	public int rejectionSamples = 30;
 	public float displayRadius =1;
 
 	public GameObject tree;
 
-	List<Vector2> points;
+	List<Vector3> points;
 
 
     private void Start()
@@ -20,11 +20,12 @@ public class Test3D : MonoBehaviour {
 		foreach (Vector3 point in points)
 		{
 			StartCoroutine(CreateTree(point));
+
 		}
 
 	}
 
-	IEnumerator CreateTree(Vector2 point)
+	IEnumerator CreateTree(Vector3 point)
 	{
 		yield return new WaitForSeconds(Random.Range(0.2f, 3f));
 
@@ -32,7 +33,7 @@ public class Test3D : MonoBehaviour {
 
 		tree.transform.localScale = Vector3.one * randomScale;
 
-		Instantiate(tree, new Vector3(point.x, 0f, point.y), Quaternion.identity);
+		Instantiate(tree, new Vector3(point.x, point.y, point.z), Quaternion.identity);
 		
 		yield return null;
 
@@ -41,7 +42,7 @@ public class Test3D : MonoBehaviour {
 
     void OnValidate() 
 	{
-		points = PoissonDiscSampling.GeneratePoints(radius, regionSize, rejectionSamples);
+		points = PoissonDiscSampling3D.GeneratePoints(radius, regionSize, rejectionSamples);
 
 	}
 
