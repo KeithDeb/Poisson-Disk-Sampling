@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    public Vector3 look = new Vector3(15, 25, 15);
     public Camera camera;
 
     // Start is called before the first frame update
@@ -15,6 +16,6 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        camera.transform.RotateAround(new Vector3(15, 15, 15), Vector3.up,  10 * Time.deltaTime);
+        camera.transform.RotateAround(look, Vector3.up,  10 * Time.deltaTime);
     }
 }
