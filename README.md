@@ -1,1 +1,1 @@
-# Unity-Poisson-Disc-Sampling
+# Poisson Disc Sampling
